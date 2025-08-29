@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lalo Part'S</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1>Lalo Part'S</h1>
+
+<div class="topbar">
+  <button id="btnExportTrabajos">Exportar trabajos</button>
+  <button id="btnBackup">Respaldo</button>
+  <button id="btnRestore">Restaurar</button>
+  <input type="file" id="restoreFile" accept="application/json" hidden>
+  <input type="text" id="search" placeholder="Buscar por cliente, producto, contacto o descripción...">
+</div>
+
+<h2>Nuevo trabajo</h2>
+<form id="form" class="card">
+  <input id="cliente" placeholder="Cliente" required>
+  <input id="contacto" placeholder="Contacto">
+  <input id="producto" placeholder="Producto" required>
+  <textarea id="descripcion" placeholder="Descripción"></textarea>
+  <label>Fecha ingreso: <input type="date" id="fIngreso" required></label>
+  <label>Fecha salida: <input type="date" id="fSalida"></label>
+  <label>Forma de pago: 
+    <select id="pago">
+      <option>efectivo</option>
+      <option>transferencia</option>
+      <option>tarjeta</option>
+    </select>
+  </label>
+  <input type="number" id="montoTotal" placeholder="Monto total" required>
+  <input type="number" id="montoPagado" placeholder="Monto pagado" required>
+  <label>Foto inicial: <input type="file" id="foto" accept="image/*"></label>
+  <button type="submit">Guardar</button>
+</form>
+
+<div class="stats">
+  <div class="stat">
+    <h3>Deuda total</h3>
+    <p id="statDeuda">$0</p>
+  </div>
+  <div class="stat">
+    <h3>Trabajos activos</h3>
+    <p id="statActivos">0</p>
+  </div>
+  <div class="stat">
+    <h3>Trabajos finalizados</h3>
+    <p id="statFinalizados">0</p>
+  </div>
+</div>
+
+<h2>Trabajos</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Cliente / Remito</th>
+      <th>Producto</th>
+      <th>Ingreso</th>
+      <th>Salida</th>
+      <th>Pago</th>
+      <th>Estado</th>
+      <th>Foto</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+<p id="emptyMsg" class="muted">Sin trabajos cargados</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
