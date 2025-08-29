@@ -5,6 +5,7 @@ function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36
 function hoyISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function guardar(){ localStorage.setItem("taller", JSON.stringify(trabajos)); }
 function cargar(){ trabajos = JSON.parse(localStorage.getItem("taller")||"[]"); render(); $('#fIngreso').value=hoyISO(); }
+
 function actualizarStats(){
     const deuda = trabajos.reduce((s,t)=>s+t.saldoPendiente,0);
     const activos = trabajos.filter(t=>t.estado==="activo").length;
@@ -138,6 +139,7 @@ async function generarFactura(id){
     const t = trabajos.find(x=>x.id===id);
     if(!t) return;
 
+    // Pedir foto final si no existe
     if(!t.fotoFinal){
         const input = document.createElement('input');
         input.type='file';
@@ -198,5 +200,14 @@ async function generarFactura(id){
 
     doc.save(`Factura_${t.cliente.replace(/\s/g,'_')}.pdf`);
 }
+
+// Autoload jspdf-autotable
+(function(){
+    if(!window.jspdf.jsPDF?.autoTable){
+        const script = document.createElement('script');
+        script.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js";
+        document.head.appendChild(script);
+    }
+})();
 
 cargar();
